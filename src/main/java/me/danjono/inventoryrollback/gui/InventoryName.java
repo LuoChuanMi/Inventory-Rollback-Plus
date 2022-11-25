@@ -4,11 +4,11 @@ import me.danjono.inventoryrollback.config.ConfigData;
 
 public enum InventoryName {
 	
-    MAIN_MENU("Inventory Rollback", 36),
-	PLAYER_MENU("Player Data", 9),
-	ROLLBACK_LIST("Rollbacks", ConfigData.getBackupLinesVisible() * 9 + 9),
-	MAIN_BACKUP("Main Inventory Backup", 54),
-    ENDER_CHEST_BACKUP("Ender Chest Backup", 36);
+    MAIN_MENU("背包回滚", 36),
+	PLAYER_MENU("玩家数据", 9),
+	ROLLBACK_LIST("回滚", ConfigData.getBackupLinesVisible() * 9 + 9),
+	MAIN_BACKUP("主要背包备份", 54),
+    ENDER_CHEST_BACKUP("末影箱备份", 36);
 	
 	private final String menuName;
 	private final int size;

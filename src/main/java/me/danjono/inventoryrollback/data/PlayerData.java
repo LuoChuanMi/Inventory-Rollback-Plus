@@ -460,7 +460,6 @@ public class PlayerData {
 
     public static String getTime(Long time) {
         SimpleDateFormat sdf = ConfigData.getTimeFormat();
-        sdf.setTimeZone(ConfigData.getTimeZone());
         return sdf.format(new Date(time));
     }
 

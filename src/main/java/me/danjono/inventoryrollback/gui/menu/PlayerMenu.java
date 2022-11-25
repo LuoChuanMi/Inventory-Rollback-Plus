@@ -34,7 +34,8 @@ public class PlayerMenu {
     }
 
     public void createInventory() {
-        inventory = Bukkit.createInventory(staff, InventoryName.PLAYER_MENU.getSize(), InventoryName.PLAYER_MENU.getName());
+        inventory = Bukkit.createInventory(staff, InventoryName.PLAYER_MENU.getSize(), InventoryName.PLAYER_MENU.getName()
+                .replace("%player%",staff.getName()));
         
         inventory.setItem(2, buttons.createDeathLogButton(LogType.DEATH, null));
         inventory.setItem(3, buttons.createJoinLogButton(LogType.JOIN, null));
@@ -82,7 +83,7 @@ public class PlayerMenu {
             staff.sendMessage(MessageData.getPluginPrefix() + MessageData.getNoBackupError(offlinePlayer.getName()));
         }
         
-        String backupsAvailable = " backup(s) available";
+        String backupsAvailable = " 可用备份";
 
         List<String> deaths = Arrays.asList(deathBackup.getAmountOfBackups() + backupsAvailable);
         inventory.setItem(2, buttons.createDeathLogButton(LogType.DEATH, deaths));

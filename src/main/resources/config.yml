@@ -50,10 +50,10 @@ time-format: 'dd/MM/yyyy hh:mm:ss a z'
 ## CAUTION - USE AT OWN RISK
 ## Enabling this option will show a button to restore a player's backup fully to their character when online.
 ## This will overwrite their current inventory completely and wipe what they currently have without backing it up first.
-restore-to-player-button: false
+restore-to-player-button: true
       
 ## Check for updates on Spigot when the server is started.
-update-checker: true
+update-checker: false
 
 ## Allow bStats to collect anonymous server data.
 ## Please leave enabled as it allows the plugin developer to see statistics about the plugin.
