@@ -11,12 +11,14 @@ import org.bukkit.event.entity.EntityDamageEvent.DamageCause;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.PlayerInventory;
-import org.bukkit.scheduler.BukkitRunnable;
 import org.bukkit.util.io.BukkitObjectOutputStream;
 import org.yaml.snakeyaml.external.biz.base64Coder.Base64Coder;
 
 import java.io.ByteArrayOutputStream;
+import java.util.Arrays;
+import java.util.List;
 import java.util.concurrent.CompletableFuture;
+import java.util.stream.Collectors;
 
 public class SaveInventory {
 
@@ -63,13 +65,12 @@ public class SaveInventory {
             }
         }
 
-        if (enderChestInventory.getContents().length > 0)
-            for (ItemStack item : enderChestInventory.getContents()) {
-                if (item != null) {
-                    enderInvContents = enderChestInventory.getContents();
-                    break;
-                }
+        if (enderChestInventory.getContents().length > 0) for (ItemStack item : enderChestInventory.getContents()) {
+            if (item != null) {
+                enderInvContents = enderChestInventory.getContents();
+                break;
             }
+        }
 
         float totalXp = getTotalExperience(player);
         double health = player.getHealth();
@@ -81,14 +82,17 @@ public class SaveInventory {
         Location pLoc = player.getLocation();
         // Multiply by 10, truncate, divide by 10
         // This has the effect of only keeping 1 decimal of precision
-        double locX = ((int)(pLoc.getX() * 10)) / 10d;
-        double locY = ((int)(pLoc.getY() * 10)) / 10d;
-        double locZ = ((int)(pLoc.getZ() * 10)) / 10d;
+        double locX = ((int) (pLoc.getX() * 10)) / 10d;
+        double locY = ((int) (pLoc.getY() * 10)) / 10d;
+        double locZ = ((int) (pLoc.getZ() * 10)) / 10d;
 
         // Final vars
-        ItemStack[] finalMainInvContents = mainInvContents;
-        ItemStack[] finalMainInvArmor = mainInvArmor;
-        ItemStack[] finalEnderInvContents = enderInvContents;
+        ItemStack[] finalMainInvContents = mainInvContents == null ? null : listToArray(Arrays.stream(mainInvContents)
+                .map(EnchantUtil::saveEnchants).collect(Collectors.toList()));
+        ItemStack[] finalMainInvArmor = mainInvArmor == null ? null : listToArray(Arrays.stream(mainInvArmor)
+                .map(EnchantUtil::saveEnchants).collect(Collectors.toList()));
+        ItemStack[] finalEnderInvContents = enderInvContents == null ? null : listToArray(Arrays.stream(enderInvContents)
+                .map(EnchantUtil::saveEnchants).collect(Collectors.toList()));
 
         boolean saveAsync = !InventoryRollbackPlus.getInstance().isShuttingDown() && shouldSaveAsync;
         Runnable saveTask = () -> {
@@ -125,6 +129,14 @@ public class SaveInventory {
         if (saveAsync) main.getServer().getScheduler().runTaskAsynchronously(main, saveTask);
         else saveTask.run();
 
+    }
+
+    private static ItemStack[] listToArray(List<ItemStack> list) {
+        ItemStack[] array = new ItemStack[list.size()];
+        for (int i = 0; i < list.size(); i++) {
+            array[i] = list.get(i);
+        }
+        return array;
     }
 
     //Conversion to Base64 code courtesy of github.com/JustRayz
@@ -167,10 +179,10 @@ public class SaveInventory {
         int experience;
         int requiredExperience;
 
-        if(level >= 0 && level <= 15) {
+        if (level >= 0 && level <= 15) {
             experience = (int) Math.ceil(Math.pow(level, 2) + (6 * level));
             requiredExperience = 2 * level + 7;
-        } else if(level > 15 && level <= 30) {
+        } else if (level > 15 && level <= 30) {
             experience = (int) Math.ceil((2.5 * Math.pow(level, 2) - (40.5 * level) + 360));
             requiredExperience = 5 * level - 38;
         } else {
