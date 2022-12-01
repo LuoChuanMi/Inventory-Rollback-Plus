@@ -50,11 +50,17 @@
             <scope>provided</scope>
         </dependency>
         <dependency>
-            <groupId>hamsteryds.nereusopus</groupId>
-            <artifactId>nereusopus</artifactId>
-            <version>2.6.6</version>
+            <groupId>public</groupId>
+            <artifactId>ecoenchants</artifactId>
+            <version>1.0.0</version>
             <scope>provided</scope>
         </dependency>
+<!--        <dependency>-->
+<!--            <groupId>hamsteryds.nereusopus</groupId>-->
+<!--            <artifactId>nereusopus</artifactId>-->
+<!--            <version>2.6.6</version>-->
+<!--            <scope>provided</scope>-->
+<!--        </dependency>-->
         <!-- bStats API -->
         <dependency>
             <groupId>org.bstats</groupId>

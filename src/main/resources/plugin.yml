@@ -4,8 +4,9 @@ version: ${project.version}
 description: ${project.description}
 author: ${project.organization.name}
 authors: [${project.organization.name}, danjono]
-depend:
+softdepend:
   - NereusOpus
+  - EcoEnchants
 api-version: 1.13
 commands:
   inventoryrollbackplus:

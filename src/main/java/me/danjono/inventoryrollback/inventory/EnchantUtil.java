@@ -1,7 +1,8 @@
 package me.danjono.inventoryrollback.inventory;
 
 import com.nuclyon.technicallycoded.inventoryrollback.InventoryRollbackPlus;
-import hamsteryds.nereusopus.utils.EnchantmentUtils;
+import com.willfp.ecoenchants.enchants.EcoEnchant;
+import com.willfp.ecoenchants.enchants.EcoEnchants;
 import org.bukkit.NamespacedKey;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.inventory.ItemStack;
@@ -75,7 +76,12 @@ public class EnchantUtil {
         String[] split = string.split(",");
         for (String s : split) {
             String[] split1 = s.split(":");
-            map.put(EnchantmentUtils.fromID(split1[0]), Integer.parseInt(split1[1]));
+
+            Enchantment enchantment = EcoEnchants.getByID(split1[0]);
+            if (enchantment == null) {
+                continue;
+            }
+            map.put(enchantment, Integer.parseInt(split1[1]));
         }
         return map;
     }
