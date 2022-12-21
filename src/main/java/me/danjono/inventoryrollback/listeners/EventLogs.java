@@ -29,7 +29,7 @@ public class EventLogs implements Listener {
 		this.main = InventoryRollbackPlus.getInstance();
 	}
 
-	@EventHandler
+	@EventHandler(priority = EventPriority.MONITOR)
 	private void playerJoin(PlayerJoinEvent e) {
 		if (!ConfigData.isEnabled()) return;
 
@@ -42,7 +42,7 @@ public class EventLogs implements Listener {
 		}
 	}
 
-	@EventHandler
+	@EventHandler(priority = EventPriority.LOW)
 	private void playerQuit(PlayerQuitEvent e) {
 		if (!ConfigData.isEnabled()) return;
 
